@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="NONE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="6a62789d-ba89-483c-97b9-53544306f2e5" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/core/components/BaseView.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/core/extensions/BitMap.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/core/models/EmptyClass.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/core/view_utils/WavyShape.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/data/repositories/love_letter/LoveLetterRepoImpl.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/domain/letter/domain/LoveLetter.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/domain/letter/repositories/LoveLetterRepo.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/domain/letter/use_cases/SendLoveLetterUseCase.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/domain/profile_verification/use_cases/VerifyProfileUseCase.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/domain/suggestions/entities/use_cases/GetSuggestionFromIdUseCase.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/ui/letter/WriteLetter.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/ui/letter/WriteLetterViewModel.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/ui/matches/components/UserDpWithName.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/ui/matches/components/UserDpWithNameSquare.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/ui/profile/ProfilePics.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/ui/profile/ProfilePicsViewModel.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/ui/profile_verification/CameraPreview.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/ui/profile_verification/ImagePreview.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/ui/profile_verification/ProfileVerification.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/ui/profile_verification/ProfileVerificationViewModel.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app/src/main/res/drawable/focus.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app/src/main/res/drawable/loveletter.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app/src/main/res/drawable/return_icon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/compose_chat/data/AndroidAudioPlayer.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/compose_chat/data/AndroidAudioRecorder.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/compose_chat/domain/AudioPlayer.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/compose_chat/domain/AudioRecorder.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/compose_chat/ui/ComposeChatStyle.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/compose_chat/ui/components/AttachmentSheet.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/compose_chat/ui/components/AudioPlayerWidget.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/compose_chat/ui/components/BlinkMic.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/compose_chat/ui/components/SelectedImagePreview.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/compose_chat/utils/DateUtils.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/drawable/baseline_check_24.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/drawable/filepaths.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/drawable/mic.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/drawable/play_button.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/deploymentTargetDropDown.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/deploymentTargetDropDown.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Audio/src/main/java/com/audio/library/AudioPlayerWidget.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../Audio/src/main/java/com/audio/library/AudioPlayerWidget.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/../app/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/MainActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/core/models/Resource.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/core/models/Resource.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/core/utils/handleApiResponse.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/core/utils/handleApiResponse.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/data/data_sources/ApiService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/data/data_sources/ApiService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/data/repositories/config_repo/ConfigRepoImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/data/repositories/config_repo/ConfigRepoImpl.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/data/repositories/matches/MatchRepoImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/data/repositories/matches/MatchRepoImpl.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/data/repositories/messages/MessageRepoImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/data/repositories/messages/MessageRepoImpl.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/data/repositories/profile/ProfileRepoImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/data/repositories/profile/ProfileRepoImpl.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/data/repositories/suggestions/SuggestionRepoImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/data/repositories/suggestions/SuggestionRepoImpl.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/data/repositories/upload/UploadFileRepoImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/data/repositories/upload/UploadFileRepoImpl.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/di/message_module/MessageModule.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/di/message_module/MessageModule.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/di/network_module/NetworkModule.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/di/network_module/NetworkModule.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/di/suggestion_module/SuggestionModule.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/di/suggestion_module/SuggestionModule.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/domain/config/entities/Config.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/domain/config/entities/Config.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/domain/matches/entities/Match.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/domain/matches/entities/Match.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/domain/matches/repositories/MatchRepo.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/domain/matches/repositories/MatchRepo.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/domain/matches/use_cases/GetMatchesFlowUseCase.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/domain/matches/use_cases/GetMatchesFlowUseCase.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/domain/matches/use_cases/GetMatchesUseCase.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/domain/matches/use_cases/GetMatchesUseCase.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/domain/messages/entities/ChatMessage.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/domain/messages/entities/ChatMessage.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/domain/messages/repositories/MessageRepo.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/domain/messages/repositories/MessageRepo.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/domain/messages/use_cases/SendMessageUseCase.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/domain/messages/use_cases/SendMessageUseCase.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/domain/profile/entities/Profile.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/domain/profile/entities/Profile.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/domain/profile/repo/FileUploadRepo.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/domain/profile/repo/FileUploadRepo.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/domain/profile/repo/ProfileRepo.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/domain/profile/repo/ProfileRepo.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/domain/profile/use_cases/UpdateProfileHashMapUseCase.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/domain/profile/use_cases/UpdateProfileHashMapUseCase.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/domain/profile/use_cases/UploadImageUseCase.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/domain/profile/use_cases/UploadImageUseCase.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/domain/suggestions/entities/entities/Suggestion.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/domain/suggestions/entities/entities/Suggestion.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/domain/suggestions/entities/repo/SuggestionRepo.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/domain/suggestions/entities/repo/SuggestionRepo.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/ui/app_home/AppHome.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/ui/app_home/AppHome.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/ui/edit_profile/EditProfile.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/ui/edit_profile/EditProfile.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/ui/edit_profile/EditProfileViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/ui/edit_profile/EditProfileViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/ui/matches/liked_users/LikedUserDetails.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/ui/matches/liked_users/LikedUserDetails.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/ui/matches/liked_users/LikesSection.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/ui/matches/liked_users/LikesSection.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/ui/matches/match_details/MatchDetails.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/ui/matches/match_details/MatchDetails.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/ui/matches/match_view/MatchViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/ui/matches/match_view/MatchViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/ui/matches/match_view/MatchesSection.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/ui/matches/match_view/MatchesSection.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/ui/matches/match_view/MatchesView.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/ui/matches/match_view/MatchesView.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/ui/messages/ChatView.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/ui/messages/ChatView.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/ui/messages/ChatViewViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/ui/messages/ChatViewViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/ui/profile/ProfilePage.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/ui/profile/ProfilePage.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/ui/profile/ProfileViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/ui/profile/ProfileViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/ui/suggestion/ProfileCard.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/ui/suggestion/ProfileCard.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/ui/suggestion/SuggestionStack.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/ui/suggestion/SuggestionStack.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/ui/suggestion/SuggestionView.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/ui/suggestion/SuggestionView.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/ui/suggestion/SuggestionViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/ui/suggestion/SuggestionViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/ui/user_forms/UserForm.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/ui/user_forms/UserForm.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/ui/user_forms/components/ImageSelector.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/malayali_datingapp/ui/user_forms/components/ImageSelector.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/compose_chat/domain/Message.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/compose_chat/domain/Message.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/compose_chat/ui/ChatView.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/compose_chat/ui/ChatView.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/compose_chat/ui/components/InputField.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/compose_chat/ui/components/InputField.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/compose_chat/ui/components/MessageBubble.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/compose_chat/ui/components/MessageBubble.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../settings.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/../settings.gradle.kts" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 3
+}]]></component>
+  <component name="ProjectId" id="2edypN3HvcWzupU8r28LtSml3Mt" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "android.gradle.sync.needed": "true",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "dart.analysis.tool.window.visible": "false",
+    "git-widget-placeholder": "dev",
+    "last_opened_file_path": "/Users/apple/AndroidStudioProjects/Hridhayam/compose_chat",
+    "show.migrate.to.gradle.popup": "false"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="6a62789d-ba89-483c-97b9-53544306f2e5" name="Changes" comment="" />
+      <created>1712248931817</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1712248931817</updated>
+    </task>
+    <servers />
+  </component>
+</project>
