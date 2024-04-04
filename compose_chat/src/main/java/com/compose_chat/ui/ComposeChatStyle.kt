@@ -15,8 +15,7 @@ import com.smarttoolfactory.bubble.BubbleState
 data class ComposeChatStyle(
     val inputFieldStyle: InputFieldStyle = defaultInputFieldStyle,
     val backGroundColor: Color,
-    val incomingBubbleShape: BubbleState,
-    val outgoingBubbleShape: BubbleState,
+
     val chatBubbleStyles: List<ChatBubbleStyle> = emptyList(),
 
     )
@@ -53,24 +52,6 @@ val defaultInputFieldStyle = InputFieldStyle(
 val defaultComposeChatStyle = ComposeChatStyle(
     inputFieldStyle = defaultInputFieldStyle,
     backGroundColor = Color.White,
-    incomingBubbleShape = BubbleState(
-        arrowShape = ArrowShape.Curved,
-
-        cornerRadius = BubbleCornerRadius(12.dp, 20.dp, 12.dp, 16.dp),
-        alignment = ArrowAlignment.RightBottom,
-
-
-        ),
-    outgoingBubbleShape = BubbleState(
-        arrowShape = ArrowShape.Curved,
-
-        cornerRadius =
-
-        BubbleCornerRadius(20.dp, 12.dp, 16.dp, 12.dp),
-        alignment = ArrowAlignment.LeftBottom,
-
-
-        ),
     chatBubbleStyles = listOf(
         ChatBubbleStyle(
             userId = "1",
@@ -128,3 +109,21 @@ val defaultReceiverChatBubbleStyle = ChatBubbleStyle(
         fontSize = 12.sp
     )
 )
+val incomingBubbleShape = BubbleState(
+    arrowShape = ArrowShape.Curved,
+
+    cornerRadius = BubbleCornerRadius(12.dp, 20.dp, 12.dp, 16.dp),
+    alignment = ArrowAlignment.RightBottom,
+
+
+    )
+val outgoingBubbleShape = BubbleState(
+    arrowShape = ArrowShape.Curved,
+
+    cornerRadius =
+
+    BubbleCornerRadius(20.dp, 12.dp, 16.dp, 12.dp),
+    alignment = ArrowAlignment.LeftBottom,
+
+
+    )

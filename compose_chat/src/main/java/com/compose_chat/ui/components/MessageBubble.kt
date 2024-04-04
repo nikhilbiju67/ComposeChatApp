@@ -31,6 +31,8 @@ import com.compose_chat.domain.MessageType
 import com.compose_chat.ui.ChatBubbleStyle
 import com.compose_chat.ui.ComposeChatStyle
 import com.compose_chat.ui.defaultComposeChatStyle
+import com.compose_chat.ui.incomingBubbleShape
+import com.compose_chat.ui.outgoingBubbleShape
 import com.compose_chat.utils.toReadableString
 import com.smarttoolfactory.bubble.BubbleShadow
 import com.smarttoolfactory.bubble.bubble
@@ -68,7 +70,7 @@ fun MessageBubble(
                     start = if (isSender) 25.dp else 0.dp,
                 )
                 .bubble(
-                    bubbleState = if (isSender) composeChatStyle.incomingBubbleShape else composeChatStyle.outgoingBubbleShape,
+                    bubbleState = if (isSender) incomingBubbleShape else outgoingBubbleShape,
 
                     color = bubbleStyle.backGroundColor,
                     shadow = shadow,
