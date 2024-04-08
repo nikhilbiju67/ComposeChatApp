@@ -13,6 +13,7 @@ import androidx.compose.animation.slideOutVertically
 import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.interaction.Interaction
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Column
@@ -40,6 +41,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -214,7 +216,8 @@ fun InputRow(
                 onVoiceRecorded(it)
                 Log.d("file", it?.exists().toString())
             },
-            onSendClick = onSendClick
+            onSendClick = onSendClick,
+            inputFieldStyle = inputFieldStyle
         )
     }
 }
@@ -321,25 +324,27 @@ fun SendMessageButton(
     onSendClick: () -> Unit,
     onRecordStarting: () -> Unit,
     onRecordStop: (File?) -> Unit,
-    onRecordProgress: (Int) -> Unit
+    onRecordProgress: (Int) -> Unit,
+    inputFieldStyle: InputFieldStyle
 ) {
     if (inputString.trim().isEmpty()) MicButton(
         modifier,
         onRecordStarting = onRecordStarting,
         onRecordStop = onRecordStop,
         onRecordProgress = onRecordProgress,
+        iconColor = inputFieldStyle.micIconColor
 
 
         )
     else {
-        SendButton(modifier, onSendClick)
+        SendButton(modifier, onSendClick, iconColor = inputFieldStyle.micIconColor)
     }
 
 
 }
 
 @Composable
-fun SendButton(modifier: Modifier, onSendClick: () -> Unit) {
+fun SendButton(modifier: Modifier, onSendClick: () -> Unit, iconColor: Color) {
     IconButton(
         onClick = onSendClick,
         modifier = modifier
@@ -350,7 +355,7 @@ fun SendButton(modifier: Modifier, onSendClick: () -> Unit) {
         Icon(
 
             Icons.AutoMirrored.Filled.Send,
-            tint = MaterialTheme.colorScheme.background,
+            tint = iconColor,
             modifier = Modifier.size(16.dp),
             contentDescription = "Send"
         )
@@ -363,7 +368,8 @@ fun MicButton(
     modifier: Modifier,
     onRecordStarting: () -> Unit,
     onRecordStop: (File?) -> Unit,
-    onRecordProgress: (Int) -> Unit
+    onRecordProgress: (Int) -> Unit,
+    iconColor: Color
 ) {
     val context = LocalContext.current
     val audioRecorder by lazy {
@@ -419,6 +425,7 @@ fun MicButton(
         ) {
             Image(
                 painter = painterResource(id = R.drawable.baseline_mic_24),
+                colorFilter = ColorFilter.tint(iconColor),
                 modifier = Modifier.size(16.dp),
                 contentDescription = ""
             )
@@ -480,7 +487,8 @@ fun PreviewSendMessageButton() {
         onSendClick = {},
         onRecordStarting = {},
         onRecordProgress = {},
-        onRecordStop = {}
+        onRecordStop = {},
+        inputFieldStyle = defaultInputFieldStyle
     )
 }
 

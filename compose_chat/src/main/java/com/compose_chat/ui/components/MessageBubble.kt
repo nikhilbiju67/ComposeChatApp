@@ -33,7 +33,7 @@ import com.compose_chat.ui.ComposeChatStyle
 import com.compose_chat.ui.defaultComposeChatStyle
 import com.compose_chat.ui.incomingBubbleShape
 import com.compose_chat.ui.outgoingBubbleShape
-import com.compose_chat.utils.toReadableString
+import com.compose_chat.utils.formatTime
 import com.smarttoolfactory.bubble.BubbleShadow
 import com.smarttoolfactory.bubble.bubble
 import java.io.File
@@ -123,10 +123,12 @@ fun MessageBubble(
                 MessageType.AUDIO -> {
                     AudioPlayerWidget(
                         modifier = Modifier.width(300.dp),
-                        url = message.messageData.url ?: "",
+                        audioRemoteUrl = message.messageData.url ?: "",
                         audioPlayer = audioPlayer,
                         isAudioPlaying = isAudioPlaying,
-                        mediaProgress = mediaProgress
+                        mediaProgress = mediaProgress,
+                        audioLocalFile = message.messageData.file
+
 
                     )
                 }
@@ -143,7 +145,7 @@ fun MessageBubble(
                     )
                 }
                 Text(
-                    message.timestamp.toReadableString(),
+                    message.timestamp.formatTime(),
                     textAlign = TextAlign.End,
 
                     color = MaterialTheme.colorScheme.onSurface,

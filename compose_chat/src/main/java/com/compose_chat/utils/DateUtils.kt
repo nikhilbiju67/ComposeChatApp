@@ -4,9 +4,18 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 
-fun LocalDateTime.toReadableString(format: String = "MM-dd hh:mm a"): String {
-    val formatter = DateTimeFormatter.ofPattern(format)
-    return this.format(formatter)
+fun LocalDateTime.formatTime(composeChatDateFormat: ComposeChatDateFormat=ComposeChatDateFormat.DateTime): String {
+    return when (composeChatDateFormat) {
+        ComposeChatDateFormat.Relative -> this.toRelativeString()
+        ComposeChatDateFormat.Time -> this.format(DateTimeFormatter.ofPattern("HH:mm:ss"))
+        ComposeChatDateFormat.Date -> this.format(DateTimeFormatter.ofPattern("dd MMM yyyy"))
+        ComposeChatDateFormat.DateTime -> this.format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm:ss"))
+        is ComposeChatDateFormat.Custom -> this.format(
+            DateTimeFormatter.ofPattern(
+                composeChatDateFormat.format
+            )
+        )
+    }
 }
 
 fun LocalDateTime.toFormatDateForDisplay(): String {
@@ -21,6 +30,17 @@ fun LocalDateTime.toRelativeString(): String {
         0L -> "today"
         1L -> "yesterday"
         in 2L..6L -> "$daysBetween days ago"
-        else -> this.toFormatDateForDisplay()
+        else -> this.formatTime(ComposeChatDateFormat.Date)
     }
+}
+
+sealed class ComposeChatDateFormat {
+    data object Relative : ComposeChatDateFormat()
+    data object Time : ComposeChatDateFormat()
+    data object Date : ComposeChatDateFormat()
+    data object DateTime : ComposeChatDateFormat()
+
+    data class Custom(
+        val format: String
+    ) : ComposeChatDateFormat()
 }

@@ -22,11 +22,13 @@ import com.compose_chat.data.AudioPlayerListener
 import com.compose_chat.domain.AudioPlayer
 import ir.mahozad.multiplatform.wavyslider.WaveDirection
 import ir.mahozad.multiplatform.wavyslider.material.WavySlider
+import java.io.File
 
 @Composable
 fun AudioPlayerWidget(
     modifier: Modifier = Modifier,
-    url: String? = null,
+    audioRemoteUrl: String? = null,
+    audioLocalFile: File? = null,
     audioPlayer: AudioPlayer,
     isAudioPlaying: Boolean = false,
     mediaProgress: Float = 0f
@@ -45,14 +47,15 @@ fun AudioPlayerWidget(
                         .padding(end = 8.dp)
                         .size(24.dp)
                         .clickable {
-                            audioPlayer.playAudio(null, url)
+                            if (audioRemoteUrl != null || audioLocalFile != null)
+                                audioPlayer.playAudio(audioLocalFile, audioRemoteUrl)
                         }
                 )
 
 
                 ///audio seekbar
                 WavySlider(
-                    value = if(isAudioPlaying) mediaProgress else 0f,
+                    value = if (isAudioPlaying) mediaProgress else 0f,
                     onValueChange = { },
                     waveLength = 26.dp,     // Set this to 0.dp to get a regular Slider
                     waveHeight = 8.dp,     // Set this to 0.dp to get a regular Slider

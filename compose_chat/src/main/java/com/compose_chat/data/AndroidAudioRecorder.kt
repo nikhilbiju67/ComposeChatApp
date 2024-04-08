@@ -18,7 +18,7 @@ class AndroidAudioRecorder(private val context: Context) : AudioRecorder {
             setOutputFile(FileOutputStream(outputFile).fd)
             prepare()
             start()
-            audioRecorder=this
+            audioRecorder = this
 
         }
     }
@@ -34,10 +34,15 @@ class AndroidAudioRecorder(private val context: Context) : AudioRecorder {
     }
 
     override fun stop() {
-        audioRecorder?.apply {
-            stop()
-            reset()
+
+        try {
+            audioRecorder?.apply {
+                stop()
+                reset()
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
-        audioRecorder=null
+        audioRecorder = null
     }
 }

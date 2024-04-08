@@ -6,6 +6,7 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.compose_chat.utils.ComposeChatDateFormat
 import com.smarttoolfactory.bubble.ArrowAlignment
 import com.smarttoolfactory.bubble.ArrowShape
 import com.smarttoolfactory.bubble.BubbleCornerRadius
@@ -15,6 +16,7 @@ import com.smarttoolfactory.bubble.BubbleState
 data class ComposeChatStyle(
     val inputFieldStyle: InputFieldStyle = defaultInputFieldStyle,
     val backGroundColor: Color,
+    val bubbleTimeFormater: ComposeChatDateFormat = ComposeChatDateFormat.Relative,
 
     val chatBubbleStyles: List<ChatBubbleStyle> = emptyList(),
 
@@ -23,7 +25,8 @@ data class ComposeChatStyle(
 data class InputFieldStyle(
     val backGroundColor: Color,
     val inputTextStyle: TextStyle,
-    val micColor: Color,
+    val micIconColor: Color,
+    val sendButtonIconColor: Color,
     val textFieldShape: Shape = RoundedCornerShape(20.dp),
     val focusedIndicatorColor: Color = Color.Transparent,
     val unfocusedIndicatorColor: Color = Color.Transparent,
@@ -45,13 +48,15 @@ val defaultInputFieldStyle = InputFieldStyle(
         color = Color.Black,
         fontSize = 16.sp
     ),
-    micColor = Color.Black
+    micIconColor = Color.Black,
+    sendButtonIconColor = Color.Black,
 )
 
 
 val defaultComposeChatStyle = ComposeChatStyle(
     inputFieldStyle = defaultInputFieldStyle,
     backGroundColor = Color.White,
+
     chatBubbleStyles = listOf(
         ChatBubbleStyle(
             userId = "1",
