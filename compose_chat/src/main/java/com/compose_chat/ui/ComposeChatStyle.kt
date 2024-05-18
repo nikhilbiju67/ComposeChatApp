@@ -81,15 +81,15 @@ val defaultComposeChatStyle = ComposeChatStyle(
 )
 
 fun getChatBubbleStyle(
-    userId: String,
+    bubleUserId: String,
     chatBubbleStyles: List<ChatBubbleStyle>,
     loggedInUserId: String
 ): ChatBubbleStyle {
-    val chatBubbleStyle = chatBubbleStyles.firstOrNull() { it.userId == userId }
+    val chatBubbleStyle = chatBubbleStyles.firstOrNull() { it.userId == bubleUserId }
     if (chatBubbleStyle != null) {
         return chatBubbleStyle
     }
-    return if (userId == loggedInUserId) {
+    return if (bubleUserId == loggedInUserId) {
         defaultSenderChatBubbleStyle
     } else {
         defaultReceiverChatBubbleStyle

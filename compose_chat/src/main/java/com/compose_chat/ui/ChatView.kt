@@ -13,9 +13,14 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.remember
@@ -66,23 +71,18 @@ fun ChatView(
                 .fillMaxWidth()
                 .background(color = composeChatStyle.backGroundColor)
         ) {
-            LazyColumn(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .fillMaxHeight(),
-                reverseLayout = true
+            EndlessLazyColumn(items = reversedMessageList,
+                itemKey = { message: Message ->
+                    message.id ?: System.currentTimeMillis().toString()
+                },
+                loadMore = {
+                    Log.d("🔊", "loadMore: ")
 
-            ) {
-
-                item {
-                    Box(modifier = Modifier.padding(bottom = 100.dp))
-                }
-                items(reversedMessageList.size) { index ->
-                    val message = reversedMessageList[index]
+                },
+                itemContent = { message ->
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .animateItemPlacement()
                             .animateContentSize(
                                 animationSpec = tween(
                                     durationMillis = 300,
@@ -97,7 +97,7 @@ fun ChatView(
                             audioPlayer = audioPlayer,
                             mediaProgress = audioProgress,
                             bubbleStyle = getChatBubbleStyle(
-                                userId = message.author.id,
+                                bubleUserId = if (message.author.id == loggedInUser.id) message.author.id else recipient.id,
                                 chatBubbleStyles = composeChatStyle.chatBubbleStyles,
                                 loggedInUserId = loggedInUser.id,
 
@@ -106,10 +106,7 @@ fun ChatView(
                             isAudioPlaying = audioPlayer.playingResource == message.messageData.url
                         )
                     }
-                }
-            }
-
-
+                }, loadingItem = { /*TODO*/ })
             InputField(
                 modifier = Modifier.align(alignment = androidx.compose.ui.Alignment.BottomCenter),
                 loggedInUser = loggedInUser,
@@ -208,4 +205,54 @@ private fun PreviewChatView() {
 
             )
     )
+}
+
+@Composable
+internal fun <T> EndlessLazyColumn(
+    modifier: Modifier = Modifier,
+    loading: Boolean = false,
+    listState: LazyListState = rememberLazyListState(),
+    items: List<T>,
+    itemKey: (T) -> String,
+    itemContent: @Composable (T) -> Unit,
+    loadingItem: @Composable () -> Unit,
+    loadMore: () -> Unit
+) {
+
+    val reachedBottom: Boolean by remember { derivedStateOf { listState.reachedBottom() } }
+
+    // load more if scrolled to bottom
+    LaunchedEffect(reachedBottom) {
+        if (reachedBottom && !loading) loadMore()
+    }
+
+    LazyColumn(
+        modifier = modifier
+            .fillMaxHeight()
+            .padding(bottom = 64.dp),
+        state = listState,
+        reverseLayout = true
+    ) {
+        items(
+            items = items,
+            key = { item: T -> itemKey(item) },
+        ) { item ->
+
+            Box(modifier = Modifier) {
+                itemContent(item)
+            }
+        }
+
+        if (loading) {
+            item {
+                loadingItem()
+            }
+        }
+    }
+}
+
+
+private fun LazyListState.reachedBottom(): Boolean {
+    val lastVisibleItem = this.layoutInfo.visibleItemsInfo.lastOrNull()
+    return lastVisibleItem?.index != 0 && lastVisibleItem?.index == this.layoutInfo.totalItemsCount - 1
 }

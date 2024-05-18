@@ -141,7 +141,13 @@ fun MessageBubble(
             Column(horizontalAlignment = Alignment.End) {
                 if (message.status == com.compose_chat.domain.MessageStatus.SENDING) {
                     Circle(
+
                         color = MaterialTheme.colorScheme.background,
+                        durationMillis = 1000,
+                         size = 10.dp,
+                        circleSizeRatio = 0.5f
+
+
                     )
                 }
                 Text(
