@@ -207,6 +207,7 @@ private fun PreviewChatView() {
     )
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 internal fun <T> EndlessLazyColumn(
     modifier: Modifier = Modifier,
@@ -225,6 +226,10 @@ internal fun <T> EndlessLazyColumn(
     LaunchedEffect(reachedBottom) {
         if (reachedBottom && !loading) loadMore()
     }
+    LaunchedEffect(items) {
+        listState.animateScrollToItem(0)
+    }
+
 
     LazyColumn(
         modifier = modifier
@@ -238,7 +243,7 @@ internal fun <T> EndlessLazyColumn(
             key = { item: T -> itemKey(item) },
         ) { item ->
 
-            Box(modifier = Modifier) {
+            Box(modifier = Modifier.animateItemPlacement()) {
                 itemContent(item)
             }
         }
