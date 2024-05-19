@@ -55,6 +55,7 @@ dependencies {
     implementation("ir.mahozad.multiplatform:wavy-slider:1.3.0")
     implementation("io.coil-kt:coil-compose:2.5.0")
     implementation("com.github.commandiron:ComposeLoading:1.0.4")
+    implementation("com.google.guava:guava:32.0.1-android")
 
     implementation(platform("androidx.compose:compose-bom:2024.05.00"))
     implementation("androidx.compose.ui:ui")
@@ -66,6 +67,7 @@ dependencies {
     implementation("com.github.SmartToolFactory:Compose-Bubble:1.1.0")
     implementation("androidx.compose.ui:ui-tooling-preview")
     debugImplementation("androidx.compose.ui:ui-tooling")
+
 }
 
 afterEvaluate {
