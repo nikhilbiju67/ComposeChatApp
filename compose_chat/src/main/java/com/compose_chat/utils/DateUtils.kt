@@ -27,7 +27,7 @@ fun LocalDateTime.toRelativeString(): String {
     val now = LocalDateTime.now()
     val daysBetween = ChronoUnit.DAYS.between(this, now)
     return when (daysBetween) {
-        0L -> "today"
+        0L -> this.format(DateTimeFormatter.ofPattern("hh:mm a"))
         1L -> "yesterday"
         in 2L..6L -> "$daysBetween days ago"
         else -> this.formatTime(ComposeChatDateFormat.Date)

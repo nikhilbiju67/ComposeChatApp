@@ -31,7 +31,9 @@ data class InputFieldStyle(
     val focusedIndicatorColor: Color = Color.Transparent,
     val unfocusedIndicatorColor: Color = Color.Transparent,
     val focusedContainerColor: Color = Color.White,
-    val unfocusedContainerColor: Color = Color.White
+    val unfocusedContainerColor: Color = Color.White,
+    val sendButtonBackGroundColor: Color = Color.Blue,
+    val micButtonBackGroundColor: Color = Color.Blue,
 )
 
 data class ChatBubbleStyle(
@@ -39,6 +41,10 @@ data class ChatBubbleStyle(
     val backGroundColor: Color,
     val textColor: Color,
     val timeTextStyle: TextStyle,
+    val messageTextStyle: TextStyle = TextStyle(
+        color = Color.Black,
+        fontSize = 16.sp
+    ),
 
     )
 
@@ -50,7 +56,8 @@ val defaultInputFieldStyle = InputFieldStyle(
     ),
     micIconColor = Color.Black,
     sendButtonIconColor = Color.Black,
-)
+
+    )
 
 
 val defaultComposeChatStyle = ComposeChatStyle(
@@ -63,7 +70,7 @@ val defaultComposeChatStyle = ComposeChatStyle(
             backGroundColor = Color.Blue,
             textColor = Color.White,
             timeTextStyle = TextStyle(
-                color = Color.Gray,
+                color = Color.White,
                 fontSize = 12.sp
             ),
 
@@ -73,7 +80,7 @@ val defaultComposeChatStyle = ComposeChatStyle(
             backGroundColor = Color.Green,
             textColor = Color.White,
             timeTextStyle = TextStyle(
-                color = Color.Gray,
+                color = Color.White,
                 fontSize = 12.sp
             )
         )
@@ -103,6 +110,10 @@ val defaultSenderChatBubbleStyle = ChatBubbleStyle(
     timeTextStyle = TextStyle(
         color = Color.Gray,
         fontSize = 12.sp
+    ),
+    messageTextStyle = TextStyle(
+        color = Color.White,
+        fontSize = 16.sp
     )
 )
 val defaultReceiverChatBubbleStyle = ChatBubbleStyle(
@@ -112,6 +123,10 @@ val defaultReceiverChatBubbleStyle = ChatBubbleStyle(
     timeTextStyle = TextStyle(
         color = Color.Gray,
         fontSize = 12.sp
+    ),
+    messageTextStyle = TextStyle(
+        color = Color.White,
+        fontSize = 16.sp
     )
 )
 val incomingBubbleShape = BubbleState(

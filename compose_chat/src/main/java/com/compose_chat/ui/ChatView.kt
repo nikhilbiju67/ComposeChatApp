@@ -103,6 +103,7 @@ fun ChatView(
 
                                 ),
                             composeChatStyle = composeChatStyle,
+
                             isAudioPlaying = audioPlayer.playingResource == message.messageData.url
                         )
                     }
@@ -240,7 +241,7 @@ internal fun <T> EndlessLazyColumn(
     ) {
         items(
             items = items,
-            key = { item: T -> itemKey(item) },
+//            key = { item: T -> itemKey(item) },
         ) { item ->
 
             Box(modifier = Modifier.animateItemPlacement()) {

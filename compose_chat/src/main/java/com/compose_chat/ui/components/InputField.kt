@@ -13,7 +13,6 @@ import androidx.compose.animation.slideOutVertically
 import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.interaction.Interaction
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Column
@@ -77,9 +76,9 @@ fun InputField(
         modifier = modifier.fillMaxWidth()
     ) {
 
-        AttachmentSheet(
+    if(showAttachmentSheet)    AttachmentSheet(
             modifier = Modifier.fillMaxWidth(),
-            showAttachmentSheet = showAttachmentSheet,
+            showAttachmentSheet = true,
             onAttachmentOutSideClick = {
                 showAttachmentSheet = false
 
@@ -332,24 +331,29 @@ fun SendMessageButton(
         onRecordStarting = onRecordStarting,
         onRecordStop = onRecordStop,
         onRecordProgress = onRecordProgress,
+        backGroundColor = inputFieldStyle.micButtonBackGroundColor,
         iconColor = inputFieldStyle.micIconColor
 
 
-        )
+    )
     else {
-        SendButton(modifier, onSendClick, iconColor = inputFieldStyle.micIconColor)
+        SendButton(Modifier, onSendClick,
+            backGroundColor = inputFieldStyle.sendButtonBackGroundColor,
+            iconColor = inputFieldStyle.micIconColor)
     }
 
 
 }
 
 @Composable
-fun SendButton(modifier: Modifier, onSendClick: () -> Unit, iconColor: Color) {
+fun SendButton(modifier: Modifier, onSendClick: () -> Unit, backGroundColor: Color, iconColor: Color) {
     IconButton(
         onClick = onSendClick,
+
         modifier = modifier
+            .then(Modifier.size(50.dp))
             .clip(CircleShape)
-            .background(color = MaterialTheme.colorScheme.primary)
+            .background(color = backGroundColor)
     ) {
 
         Icon(
@@ -368,6 +372,7 @@ fun MicButton(
     modifier: Modifier,
     onRecordStarting: () -> Unit,
     onRecordStop: (File?) -> Unit,
+    backGroundColor: Color,
     onRecordProgress: (Int) -> Unit,
     iconColor: Color
 ) {
@@ -421,7 +426,7 @@ fun MicButton(
 
             modifier = Modifier
                 .clip(CircleShape)
-                .background(color = MaterialTheme.colorScheme.primary)
+                .background(color = backGroundColor)
         ) {
             Image(
                 painter = painterResource(id = R.drawable.baseline_mic_24),

@@ -8,7 +8,6 @@ import android.webkit.MimeTypeMap
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -34,6 +33,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
 import androidx.core.net.toUri
 import com.compose_chat.R
 import java.io.File
@@ -51,27 +52,32 @@ fun AttachmentSheet(
     }
 
     if (showAttachmentSheetFlag) {
-        AnimatedContent(targetState = showAttachmentSheet, label = "") { visible ->
-            if (visible) {
-                Column(
-                    verticalArrangement = Arrangement.Bottom,
-                    modifier = modifier
-                        .clickable {
-                            onAttachmentOutSideClick()
-                        }
-                        .padding(bottom = 12.dp, top = 600.dp)
+        Dialog(
 
-                ) {
-                    AttachmentOptions(
-                        onConfirmImage = {
-                            showAttachmentSheetFlag = false
-                            onImageAttachmentSelected(it)
-                            Log.d("🔥", "AttachmentSheet: $it")
-                        }
-                    )
-                }
+
+            onDismissRequest = {
+                showAttachmentSheetFlag = false
+                onAttachmentOutSideClick()
+            },
+            properties = DialogProperties(dismissOnBackPress = true, dismissOnClickOutside = true,)
+        ) {
+            Column(
+                verticalArrangement = Arrangement.Bottom,
+                modifier = modifier
+                    .clickable {
+                        onAttachmentOutSideClick()
+                    }
+                    .padding(bottom = 12.dp)
+
+            ) {
+                AttachmentOptions(
+                    onConfirmImage = {
+                        showAttachmentSheetFlag = false
+                        onImageAttachmentSelected(it)
+                        Log.d("🔥", "AttachmentSheet: $it")
+                    }
+                )
             }
-
 
         }
     }

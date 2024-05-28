@@ -87,7 +87,8 @@ fun MessageBubble(
                     message.messageData.message?.let {
                         Text(
                             text = it,
-                            color = if (isSender) Color.White else Color.Black
+                            color =bubbleStyle.messageTextStyle.color,
+                            style = bubbleStyle.messageTextStyle,
                         )
                     }
                 }
@@ -151,11 +152,11 @@ fun MessageBubble(
                     )
                 }
                 Text(
-                    message.timestamp.formatTime(),
+                    message.timestamp.formatTime(composeChatDateFormat = composeChatStyle.bubbleTimeFormater),
                     textAlign = TextAlign.End,
 
-                    color = MaterialTheme.colorScheme.onSurface,
-                    style = MaterialTheme.typography.bodySmall
+                    color = bubbleStyle.timeTextStyle.color,
+                    style = bubbleStyle.timeTextStyle
                 )
             }
         }
