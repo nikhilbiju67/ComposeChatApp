@@ -35,35 +35,39 @@ class AndroidAudioPlayer(private val context: Context, private val listener: Aud
     }
 
     override fun playAudio(file: File?, url: String?) {
-        if (mediaPlayer?.isPlaying == true) {
-            stopAudio()
+        try {
+            if (mediaPlayer?.isPlaying == true) {
+                stopAudio()
 
-        }
-
-        mediaPlayer = MediaPlayer().apply {
-            setAudioAttributes(
-                AudioAttributes.Builder()
-                    .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
-                    .setUsage(AudioAttributes.USAGE_MEDIA)
-                    .build()
-            )
-            if (file != null) {
-                playingResource = file.absolutePath
-                setDataSource(file.absolutePath)
-            } else {
-                playingResource = url
-                setDataSource(url)
             }
 
+            mediaPlayer = MediaPlayer().apply {
+                setAudioAttributes(
+                    AudioAttributes.Builder()
+                        .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+                        .setUsage(AudioAttributes.USAGE_MEDIA)
+                        .build()
+                )
+                if (file != null&&file.exists()) {
+                    playingResource = file.absolutePath
+                    setDataSource(file.absolutePath)
+                } else {
+                    playingResource = url
+                    setDataSource(url)
+                }
 
-            setOnPreparedListener { mp ->
-                mp.start()
-                startProgressUpdates()
+
+                setOnPreparedListener { mp ->
+                    mp.start()
+                    startProgressUpdates()
+                }
+                setOnCompletionListener {
+                    stopProgressUpdates()
+                }
+                prepareAsync()
             }
-            setOnCompletionListener {
-                stopProgressUpdates()
-            }
-            prepareAsync()
+        }catch (e:Exception){
+            e.printStackTrace()
         }
     }
 

@@ -58,10 +58,10 @@ fun AudioPlayerWidget(
                     value = if (isAudioPlaying) mediaProgress else 0f,
                     onValueChange = { },
                     waveLength = 26.dp,     // Set this to 0.dp to get a regular Slider
-                    waveHeight = 8.dp,     // Set this to 0.dp to get a regular Slider
-                    waveVelocity = 15.dp to WaveDirection.TAIL,
-                    waveThickness = 1.dp,   // Defaults to the specified trackThickness
-                    trackThickness = 1.dp,  // Defaults to 4.dp, same as regular Slider
+                    waveHeight = 12.dp,     // Set this to 0.dp to get a regular Slider
+                    waveVelocity = 15.dp to WaveDirection.HEAD,
+                    waveThickness = 2.dp,   // Defaults to the specified trackThickness
+                    trackThickness = 3.dp,  // Defaults to 4.dp, same as regular Slider
                     incremental = true,    // Whether to gradually increase waveHeight
                     // animationSpecs = ... // Customize various animations of the wave
                 )

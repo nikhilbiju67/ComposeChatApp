@@ -47,6 +47,7 @@ fun ChatView(
     loggedInUser: ChatUser,
     recipient: ChatUser,
     onMessageSend: (Message) -> Unit,
+    onLoadMore: () -> Unit = {},
     composeChatStyle: ComposeChatStyle = defaultComposeChatStyle
 ) {
     var audioProgress: Float by remember {
@@ -76,7 +77,7 @@ fun ChatView(
                     message.id ?: System.currentTimeMillis().toString()
                 },
                 loadMore = {
-                    Log.d("🔊", "loadMore: ")
+                   onLoadMore()
 
                 },
                 itemContent = { message ->
