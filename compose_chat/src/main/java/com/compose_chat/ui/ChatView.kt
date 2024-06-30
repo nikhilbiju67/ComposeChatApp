@@ -35,6 +35,7 @@ import com.compose_chat.domain.AudioPlayer
 import com.compose_chat.domain.ChatUser
 import com.compose_chat.domain.Message
 import com.compose_chat.domain.MessageData
+import com.compose_chat.domain.MessageType
 import com.compose_chat.ui.components.InputField
 import com.compose_chat.ui.components.MessageBubble
 import java.time.LocalDateTime
@@ -195,7 +196,7 @@ private fun PreviewChatView() {
                     name = "Jane",
                     imageUrl = "https://randomuser.me/api/port"
                 ),
-                messageData = MessageData("I am good"),
+                messageData = MessageData("I am good", type = MessageType.IMAGE),
                 timestamp = LocalDateTime.now(),
                 id = "",
                 author = com.compose_chat.domain.ChatUser(
@@ -229,6 +230,8 @@ internal fun <T> EndlessLazyColumn(
         if (reachedBottom && !loading) loadMore()
     }
     LaunchedEffect(items) {
+        ///if scroll position is zero animate to 0
+ if(!listState.canScrollBackward)
         listState.animateScrollToItem(0)
     }
 

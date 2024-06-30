@@ -3,11 +3,11 @@ package com.compose_chat.ui.components
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
@@ -18,12 +18,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalInspectionMode
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.commandiron.compose_loading.Circle
+import com.compose_chat.R
 import com.compose_chat.domain.AudioPlayer
 import com.compose_chat.domain.Message
 import com.compose_chat.domain.MessageData
@@ -78,7 +81,7 @@ fun MessageBubble(
                     borderStroke = borderStroke,
 
                     )
-                .padding(horizontal = 15.dp, vertical = 10.dp),
+                .padding(horizontal = 4.dp, vertical = 4.dp),
             horizontalAlignment = if (isSender) Alignment.End else Alignment.Start,
         ) {
 
@@ -86,6 +89,7 @@ fun MessageBubble(
                 MessageType.TEXT -> {
                     message.messageData.message?.let {
                         Text(
+                            modifier = Modifier.padding(8.dp),
                             text = it,
                             color =bubbleStyle.messageTextStyle.color,
                             style = bubbleStyle.messageTextStyle,
@@ -104,13 +108,12 @@ fun MessageBubble(
                             contentScale = ContentScale.FillWidth,
                             modifier = Modifier
                                 .width(300.dp)
-                                .height(100.dp),
                         )
                     } else Column {
                         AsyncImage(
                             modifier = Modifier
-                                .width(300.dp)
-                                .height(100.dp),
+                                .width(300.dp),
+                            placeholder = debugPlaceholder(debugPreview = R.drawable.gallery),
                             model = message.messageData.url ?: "", contentDescription = "image",
                             contentScale = ContentScale.FillWidth
                         )
@@ -154,6 +157,7 @@ fun MessageBubble(
                 Text(
                     message.timestamp.formatTime(composeChatDateFormat = composeChatStyle.bubbleTimeFormater),
                     textAlign = TextAlign.End,
+                    modifier = Modifier.padding(vertical = 4.dp),
 
                     color = bubbleStyle.timeTextStyle.color,
                     style = bubbleStyle.timeTextStyle
@@ -210,4 +214,13 @@ fun PreviewMessageBubble() {
         }
     )
 }
+
+@Composable
+fun debugPlaceholder(@DrawableRes debugPreview: Int) =
+    if (LocalInspectionMode.current) {
+        painterResource(id = debugPreview)
+    } else {
+        null
+    }
+
 

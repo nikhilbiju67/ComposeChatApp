@@ -122,7 +122,7 @@ val defaultReceiverChatBubbleStyle = ChatBubbleStyle(
     textColor = Color.White,
     timeTextStyle = TextStyle(
         color = Color.Gray,
-        fontSize = 12.sp
+        fontSize = 10.sp
     ),
     messageTextStyle = TextStyle(
         color = Color.White,
