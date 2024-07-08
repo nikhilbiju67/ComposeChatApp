@@ -72,8 +72,12 @@ class AndroidAudioPlayer(private val context: Context, private val listener: Aud
     }
 
     override fun stopAudio() {
-        if (mediaPlayer?.isPlaying == false) {
-            return
+        try {
+            if (mediaPlayer?.isPlaying == false) {
+                return
+            }
+        }catch (e:Exception){
+            e.printStackTrace()
         }
         mediaPlayer?.stop()
         mediaPlayer?.reset()
