@@ -48,10 +48,6 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-
-
-    implementation("com.github.massoudss:waveformSeekBar:5.0.2")
-    implementation("com.github.lincollincol:amplituda:2.2.2")
     implementation("ir.mahozad.multiplatform:wavy-slider:1.3.0")
     implementation("io.coil-kt:coil-compose:2.5.0")
     implementation("com.github.commandiron:ComposeLoading:1.0.4")

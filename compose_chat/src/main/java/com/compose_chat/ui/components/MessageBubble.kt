@@ -61,7 +61,8 @@ fun MessageBubble(
     mediaProgress: Float = 0f,
     isAudioPlaying: Boolean = false,
     bubbleStyle: ChatBubbleStyle,
-    composeChatStyle: ComposeChatStyle
+    composeChatStyle: ComposeChatStyle,
+    imageBuilder: (@Composable (File?,String?) -> Unit)? = null,
 ) {
     Box(modifier = modifier.fillMaxWidth()) {
         Column(
@@ -99,7 +100,9 @@ fun MessageBubble(
 
                 MessageType.IMAGE -> {
                     val context = LocalContext.current
-                    if (message.messageData.file != null && message.messageData.file.exists()) {
+                    if(imageBuilder!=null){
+                        imageBuilder.invoke(message.messageData.file,message.messageData.url)
+                    }else if (message.messageData.file != null && message.messageData.file.exists()) {
                         AsyncImage(
                             model = ImageRequest.Builder(LocalContext.current)
                                 .data(message.messageData.file.absolutePath)
