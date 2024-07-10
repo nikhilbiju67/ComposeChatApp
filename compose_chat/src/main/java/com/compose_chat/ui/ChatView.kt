@@ -38,7 +38,6 @@ import com.compose_chat.domain.MessageData
 import com.compose_chat.domain.MessageType
 import com.compose_chat.ui.components.InputField
 import com.compose_chat.ui.components.MessageBubble
-import java.io.File
 import java.time.LocalDateTime
 
 @OptIn(ExperimentalMaterialApi::class, ExperimentalFoundationApi::class)
@@ -50,7 +49,7 @@ fun ChatView(
     recipient: ChatUser,
     onMessageSend: (Message) -> Unit,
     onLoadMore: () -> Unit = {},
-    imageBuilder: (@Composable (File?, String?) -> Unit)? = null,
+    imageBuilder: (@Composable (Message) -> Unit)? = null,
     composeChatStyle: ComposeChatStyle = defaultComposeChatStyle
 ) {
     var audioProgress: Float by remember {

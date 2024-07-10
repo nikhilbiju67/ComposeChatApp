@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -22,10 +23,23 @@ import com.compose_chat.R
 import com.compose_chat.data.AndroidAudioPlayer
 import com.compose_chat.data.AudioPlayerListener
 import com.compose_chat.domain.AudioPlayer
+import com.linc.audiowaveform.AudioWaveform
+import com.linc.audiowaveform.model.AmplitudeType
 import ir.mahozad.multiplatform.wavyslider.WaveDirection
 import ir.mahozad.multiplatform.wavyslider.material.WavySlider
 import java.io.File
-
+val amplitudes=   listOf(
+    8, 5, 6, 8, 7, 8, 4, 2, 8, 4, 3,
+    8, 5, 6, 8, 7, 8, 4, 2, 8, 4, 3,
+    2, 9, 8, 9, 9, 2, 9, 4, 9, 8, 5, 6, 8, 7, 8, 4, 2, 8, 4, 3,
+    8, 5, 6, 8, 7, 8, 4, 2, 8, 4, 3,
+    8, 5, 6, 8, 7, 8, 4, 2, 8, 4, 3,
+    2, 9, 8, 9, 9, 2, 9, 4, 9, 8, 5, 6, 8, 7, 8, 4, 2, 8, 4, 3,
+    2, 9, 8, 9, 9, 2, 9, 4, 9, 8, 5, 6, 8, 7, 8, 4, 2, 8, 4, 3,
+    2, 9, 8, 9, 9, 2, 9, 4, 9, 8, 5, 6, 8, 7, 8, 4, 2, 8, 4, 3,
+    2, 9, 8, 9, 9, 2, 9, 4, 9, 8, 5, 6, 8, 7, 8, 4, 2, 8, 4, 3,
+    2, 9, 8, 9, 9, 2, 9, 4, 9, 8, 5, 6, 8, 7, 8, 4, 2, 8, 4, 3
+)
 @Composable
 fun AudioPlayerWidget(
     modifier: Modifier = Modifier,
@@ -38,7 +52,7 @@ fun AudioPlayerWidget(
     val context = LocalContext.current
 
 
-    Box(modifier.padding(top = 4.dp, start = 4.dp)) {
+    Box(modifier.padding(top = 4.dp, start = 4.dp, end = 4.dp)) {
         Column {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 ///audio playButton
@@ -54,7 +68,19 @@ fun AudioPlayerWidget(
                                 audioPlayer.playAudio(audioLocalFile, audioRemoteUrl)
                         }
                 )
+                AudioWaveform(
+                    amplitudes = amplitudes,
+                    amplitudeType = AmplitudeType.Avg,
+                    progressBrush = SolidColor(MaterialTheme.colorScheme.onSurfaceVariant),
+                    waveformBrush = SolidColor(MaterialTheme.colorScheme.surfaceVariant),
+                    spikeWidth = 4.dp,
+                    spikePadding = 2.dp,
+                    spikeRadius = 4.dp,
 
+//                    progress = 0.6f,
+                    progress = if (isAudioPlaying) mediaProgress else 0f,
+                    onProgressChange = {  }
+                )
 
                 ///audio seekbar
                 WavySlider(
