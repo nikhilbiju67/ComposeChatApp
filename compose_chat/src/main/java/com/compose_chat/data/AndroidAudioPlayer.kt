@@ -3,6 +3,7 @@ package com.compose_chat.data
 import android.content.Context
 import android.media.AudioAttributes
 import android.media.MediaPlayer
+import android.util.Log
 import com.compose_chat.domain.AudioPlayer
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -79,10 +80,16 @@ class AndroidAudioPlayer(private val context: Context, private val listener: Aud
         }catch (e:Exception){
             e.printStackTrace()
         }
-        mediaPlayer?.stop()
-        mediaPlayer?.reset()
-        mediaPlayer?.release()
+        try {
+            mediaPlayer?.stop()
+            mediaPlayer?.reset()
+            mediaPlayer?.release()
 
+            stopProgressUpdates()
+        }catch (e:Exception){
+            e.printStackTrace()
+            Log.d("AudioPlayer", "stopAudio: ${e.message}")
+        }
         stopProgressUpdates()
     }
 
