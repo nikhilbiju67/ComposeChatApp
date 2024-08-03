@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 import java.io.File
 
 interface AudioPlayerListener {
-    fun onProgressUpdate(progress: Int,currentPlayingResource: String?)
+    fun onProgressUpdate(progress: Int, currentPlayingResource: String?)
 }
 
 class AndroidAudioPlayer(private val context: Context, private val listener: AudioPlayerListener) :
@@ -49,7 +49,7 @@ class AndroidAudioPlayer(private val context: Context, private val listener: Aud
                         .setUsage(AudioAttributes.USAGE_MEDIA)
                         .build()
                 )
-                if (file != null&&file.exists()) {
+                if (file != null && file.exists()) {
                     playingResource = file.absolutePath
                     setDataSource(file.absolutePath)
                 } else {
@@ -67,7 +67,7 @@ class AndroidAudioPlayer(private val context: Context, private val listener: Aud
                 }
                 prepareAsync()
             }
-        }catch (e:Exception){
+        } catch (e: Exception) {
             e.printStackTrace()
         }
     }
@@ -77,7 +77,7 @@ class AndroidAudioPlayer(private val context: Context, private val listener: Aud
             if (mediaPlayer?.isPlaying == false) {
                 return
             }
-        }catch (e:Exception){
+        } catch (e: Exception) {
             e.printStackTrace()
         }
         try {
@@ -86,7 +86,7 @@ class AndroidAudioPlayer(private val context: Context, private val listener: Aud
             mediaPlayer?.release()
 
             stopProgressUpdates()
-        }catch (e:Exception){
+        } catch (e: Exception) {
             e.printStackTrace()
             Log.d("AudioPlayer", "stopAudio: ${e.message}")
         }
@@ -99,12 +99,16 @@ class AndroidAudioPlayer(private val context: Context, private val listener: Aud
             val duration = it.duration
             progressJob = CoroutineScope(Dispatchers.Main).launch {
                 while (true) {
-                    val currentPosition = it.currentPosition
-                    val progress = (currentPosition.toDouble() / duration) * 100
-                    listener.onProgressUpdate(progress.toInt(),playingResource)
-                    audioProgress = progress.toInt()
+                    try {
+                        val currentPosition = it.currentPosition
+                        val progress = (currentPosition.toDouble() / duration) * 100
+                        listener.onProgressUpdate(progress.toInt(), playingResource)
+                        audioProgress = progress.toInt()
 
-                    delay(50) // Update every second
+                        delay(50) // Update every second
+                    } catch (e: Exception) {
+
+                    }
                 }
             }
         }
