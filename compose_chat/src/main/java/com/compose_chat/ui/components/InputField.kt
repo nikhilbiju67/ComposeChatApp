@@ -25,17 +25,20 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Send
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -46,6 +49,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
 import com.compose_chat.R
 import com.compose_chat.data.AndroidAudioRecorder
 import com.compose_chat.domain.ChatUser
@@ -59,29 +63,41 @@ import java.io.File
 import java.time.LocalDateTime
 import java.util.UUID
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun InputField(
     modifier: Modifier,
     loggedInUser: ChatUser,
     recipient: ChatUser,
     onSendClick: (Message) -> Unit = {},
-    inputFieldStyle: InputFieldStyle
-) {
+    inputFieldStyle: InputFieldStyle,
+    onCameraAttachmentClick: () -> Unit = {}
+) {0
+
 
     var showAttachmentSheet by remember { mutableStateOf(false) }
     var inputString by remember { mutableStateOf("") }
+    val scope = rememberCoroutineScope()
 
 
     Column(
         modifier = modifier.fillMaxWidth()
     ) {
 
-    if(showAttachmentSheet)    AttachmentSheet(
+    if(showAttachmentSheet)    Dialog(
+
+        onDismissRequest = {
+            showAttachmentSheet = false
+        }) {
+        AttachmentSheet(
             modifier = Modifier.fillMaxWidth(),
             showAttachmentSheet = true,
             onAttachmentOutSideClick = {
                 showAttachmentSheet = false
 
+            },
+            onCameraAttachmentClick = {
+                onCameraAttachmentClick()
             },
             onImageAttachmentSelected = {
                 showAttachmentSheet = false
@@ -99,10 +115,18 @@ fun InputField(
             }
         )
 
+
+    }
         InputRow(
             inputString = inputString,
             onInputChange = { inputString = it },
-            onAttachmentClick = { showAttachmentSheet = true },
+            onAttachmentClick = {
+                showAttachmentSheet = true
+//            scope.launch {
+//                modelBottomSheet.show()
+//            }
+//                Log.d("Attachment", "Clicked")
+            },
             onVoiceRecorded = {
                 onSendClick(
                     Message(
@@ -231,6 +255,7 @@ fun AttachmentButton(modifier: Modifier, onClick: () -> Unit) {
     ) {
         Image(
             imageVector = Icons.Filled.Add,
+            colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onBackground),
             contentDescription = null,
             modifier = Modifier.size(16.dp)
         )

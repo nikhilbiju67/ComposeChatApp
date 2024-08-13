@@ -8,7 +8,9 @@ import com.compose_chat.domain.AudioPlayer
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.io.File
 
 interface AudioPlayerListener {
@@ -95,19 +97,21 @@ class AndroidAudioPlayer(private val context: Context, private val listener: Aud
 
 
     private fun startProgressUpdates() {
-        mediaPlayer?.let {
-            val duration = it.duration
-            progressJob = CoroutineScope(Dispatchers.Main).launch {
-                while (true) {
+        progressJob?.cancel()
+        progressJob = CoroutineScope(Dispatchers.Default).launch {
+            mediaPlayer?.let { player ->
+                val duration = player.duration
+                while (isActive) {
                     try {
-                        val currentPosition = it.currentPosition
-                        val progress = (currentPosition.toDouble() / duration) * 100
-                        listener.onProgressUpdate(progress.toInt(), playingResource)
-                        audioProgress = progress.toInt()
-
-                        delay(50) // Update every second
+                        val currentPosition = player.currentPosition
+                        val progress = (currentPosition.toDouble() / duration * 100).toInt()
+                        withContext(Dispatchers.Main) {
+                            listener.onProgressUpdate(progress, playingResource)
+                            audioProgress = progress
+                        }
+                        delay(200) // Update every 200ms
                     } catch (e: Exception) {
-
+                        Log.e("AudioPlayer", "Error updating progress", e)
                     }
                 }
             }

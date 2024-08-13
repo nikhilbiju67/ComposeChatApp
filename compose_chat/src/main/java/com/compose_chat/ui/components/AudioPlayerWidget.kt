@@ -80,6 +80,8 @@ fun AudioPlayerWidget(
 
     Box(modifier.padding(top = 4.dp, start = 4.dp, end = 4.dp)) {
         Column {
+
+
             Row(verticalAlignment = Alignment.CenterVertically) {
                 ///audio playButton
                 Image(
@@ -97,8 +99,8 @@ fun AudioPlayerWidget(
                 AudioWaveform(
                     amplitudes = amplitudes,
                     amplitudeType = AmplitudeType.Avg,
-                    progressBrush = SolidColor(MaterialTheme.colorScheme.onSurfaceVariant),
-                    waveformBrush = SolidColor(Color.LightGray),
+                    progressBrush = SolidColor(MaterialTheme.colorScheme.onSurface),
+                    waveformBrush = SolidColor(Color.Black),
                     spikeWidth = 4.dp,
                     spikePadding = 2.dp,
                     spikeRadius = 4.dp,

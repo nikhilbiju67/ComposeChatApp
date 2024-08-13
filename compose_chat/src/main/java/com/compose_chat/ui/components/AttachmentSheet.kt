@@ -30,6 +30,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -44,22 +45,22 @@ fun AttachmentSheet(
     modifier: Modifier,
     showAttachmentSheet: Boolean,
     onImageAttachmentSelected: (Uri) -> Unit = {},
-    onAttachmentOutSideClick: () -> Unit
+    onAttachmentOutSideClick: () -> Unit,
+    onCameraAttachmentClick: () -> Unit = {}
 ) {
     var showAttachmentSheetFlag by remember { mutableStateOf(showAttachmentSheet) }
+
     LaunchedEffect(showAttachmentSheet) {
         showAttachmentSheetFlag = true
     }
 
     if (showAttachmentSheetFlag) {
         Dialog(
-
-
             onDismissRequest = {
                 showAttachmentSheetFlag = false
                 onAttachmentOutSideClick()
             },
-            properties = DialogProperties(dismissOnBackPress = true, dismissOnClickOutside = true,)
+            properties = DialogProperties(dismissOnBackPress = true, dismissOnClickOutside = true)
         ) {
             Column(
                 verticalArrangement = Arrangement.Bottom,
@@ -75,7 +76,11 @@ fun AttachmentSheet(
                         showAttachmentSheetFlag = false
                         onImageAttachmentSelected(it)
                         Log.d("🔥", "AttachmentSheet: $it")
+                    }, onConfirmCamera = {
+                        showAttachmentSheetFlag = false
+                        onCameraAttachmentClick()
                     }
+
                 )
             }
 
@@ -87,6 +92,7 @@ fun AttachmentSheet(
 fun AttachmentOptions(
     modifier: Modifier = Modifier,
     onConfirmImage: (Uri) -> Unit = {},
+    onConfirmCamera: () -> Unit = {}
 ) {
     Box(
         modifier = Modifier
@@ -149,19 +155,14 @@ fun AttachmentOptions(
 
             }
 
-        val cameraLauncher = rememberLauncherForActivityResult(
-            contract = ActivityResultContracts.TakePicture(),
-            onResult = {
 
-            }
-        )
         Column(
             modifier = modifier
                 .fillMaxWidth(), verticalArrangement = Arrangement.Bottom
         ) {
             Row(
                 modifier = Modifier
-                    .padding(horizontal = 16.dp)
+                    .padding(horizontal = 16.dp, vertical = 32.dp)
                     .fillMaxWidth()
                     .clip(RoundedCornerShape(24.dp))
                     .background(color = MaterialTheme.colorScheme.background),
@@ -175,12 +176,14 @@ fun AttachmentOptions(
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally,
                     modifier = Modifier.clickable {
+                        onConfirmCamera()
 
                     }
                 ) {
                     Image(
                         modifier = Modifier.size(32.dp),
-                        painter = painterResource(id = R.drawable.camera),
+                        painter = painterResource(id = R.drawable.camera_icon),
+                        colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onBackground),
                         contentDescription = "Camera"
                     )
                     Text("Camera")
@@ -202,6 +205,7 @@ fun AttachmentOptions(
                     Image(
                         modifier = Modifier.size(24.dp),
                         painter = painterResource(id = R.drawable.gallery),
+                        colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onBackground),
                         contentDescription = "Gallery"
                     )
                     Text("Gallery")

@@ -3,6 +3,8 @@ package com.compose_chat.ui
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
+import androidx.camera.view.CameraController
+import androidx.camera.view.LifecycleCameraController
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.tween
@@ -10,6 +12,7 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -17,14 +20,17 @@ import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
@@ -35,12 +41,17 @@ import com.compose_chat.domain.AudioPlayer
 import com.compose_chat.domain.ChatUser
 import com.compose_chat.domain.Message
 import com.compose_chat.domain.MessageData
+import com.compose_chat.domain.MessageStatus
 import com.compose_chat.domain.MessageType
 import com.compose_chat.ui.components.InputField
 import com.compose_chat.ui.components.MessageBubble
+import java.io.File
 import java.time.LocalDateTime
+import java.util.UUID
 
-@OptIn(ExperimentalMaterialApi::class, ExperimentalFoundationApi::class)
+@OptIn(ExperimentalMaterialApi::class, ExperimentalFoundationApi::class,
+    ExperimentalMaterial3Api::class
+)
 @Composable
 fun ChatView(
     modifier: Modifier = Modifier,
@@ -55,75 +66,119 @@ fun ChatView(
     var audioProgress: Float by remember {
         mutableFloatStateOf(0.0f)
     }
+    var currentPlayingResourceState: String? by remember {
+        mutableStateOf(null)
+    }
+    var showCamera by remember {
+        mutableStateOf(false)
+    }
+
     val context = LocalContext.current
+    val controller = remember {
+        LifecycleCameraController(context).apply {
+            setEnabledUseCases(CameraController.IMAGE_CAPTURE)
+        }
+    }
     val audioPlayer: AudioPlayer by lazy {
         AndroidAudioPlayer(context, listener = object : AudioPlayerListener {
             override fun onProgressUpdate(progressValue: Int, currentPlayingResource: String?) {
                 Log.d("🔊", "onProgressUpdate: $progressValue")
                 audioProgress = progressValue.toFloat() / 100
+                if (currentPlayingResource != currentPlayingResourceState) {
+                    currentPlayingResourceState = currentPlayingResource
+                    audioProgress = 0f
+                }
 
             }
 
         })
     }
     val reversedMessageList = messageList.reversed()
-    Scaffold { padding ->
-        Box(
-            modifier = Modifier
-                .padding(padding)
-                .fillMaxWidth()
-                .background(color = composeChatStyle.backGroundColor)
-        ) {
-            EndlessLazyColumn(items = reversedMessageList,
-                itemKey = { message: Message ->
-                    message.id ?: System.currentTimeMillis().toString()
-                },
-                loadMore = {
-                   onLoadMore()
+    Box(modifier = Modifier.fillMaxSize()) {
 
-                },
-                itemContent = { message ->
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .animateContentSize(
-                                animationSpec = tween(
-                                    durationMillis = 300,
-                                    easing = LinearOutSlowInEasing
+        Scaffold { padding ->
+            Box(
+                modifier = Modifier
+                    .padding(padding)
+                    .fillMaxWidth()
+                    .background(color = composeChatStyle.backGroundColor)
+            ) {
+
+                EndlessLazyColumn(items = reversedMessageList,
+                    itemKey = { message: Message ->
+                        message.id ?: System.currentTimeMillis().toString()
+                    },
+                    loadMore = {
+                        onLoadMore()
+
+                    },
+                    itemContent = { message ->
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .animateContentSize(
+                                    animationSpec = tween(
+                                        durationMillis = 300,
+                                        easing = LinearOutSlowInEasing
+                                    )
                                 )
+                        ) {
+                            MessageBubble(
+                                modifier = Modifier.padding(8.dp),
+                                message = message,
+                                isSender = message.author.id == loggedInUser.id,
+                                audioPlayer = audioPlayer,
+                                mediaProgress = audioProgress,
+                                bubbleStyle = getChatBubbleStyle(
+                                    bubleUserId = if (message.author.id == loggedInUser.id) message.author.id else recipient.id,
+                                    chatBubbleStyles = composeChatStyle.chatBubbleStyles,
+                                    loggedInUserId = loggedInUser.id,
+
+                                    ),
+                                imageBuilder = imageBuilder,
+                                composeChatStyle = composeChatStyle,
+
+                                isAudioPlaying = currentPlayingResourceState == message.messageData.url
                             )
-                    ) {
-                        MessageBubble(
-                            modifier = Modifier.padding(8.dp),
-                            message = message,
-                            isSender = message.author.id == loggedInUser.id,
-                            audioPlayer = audioPlayer,
-                            mediaProgress = audioProgress,
-                            bubbleStyle = getChatBubbleStyle(
-                                bubleUserId = if (message.author.id == loggedInUser.id) message.author.id else recipient.id,
-                                chatBubbleStyles = composeChatStyle.chatBubbleStyles,
-                                loggedInUserId = loggedInUser.id,
-
-                                ),
-                            imageBuilder = imageBuilder,
-                            composeChatStyle = composeChatStyle,
-
-                            isAudioPlaying = audioPlayer.playingResource == message.messageData.url
+                        }
+                    }, loadingItem = { /*TODO*/ })
+                InputField(
+                    onCameraAttachmentClick = {
+                        showCamera = true
+                    },
+                    modifier = Modifier.align(alignment = Alignment.BottomCenter),
+                    loggedInUser = loggedInUser,
+                    recipient = recipient,
+                    inputFieldStyle = composeChatStyle.inputFieldStyle,
+                    onSendClick = {
+                        onMessageSend(
+                            it
                         )
-                    }
-                }, loadingItem = { /*TODO*/ })
-            InputField(
-                modifier = Modifier.align(alignment = androidx.compose.ui.Alignment.BottomCenter),
-                loggedInUser = loggedInUser,
-                recipient = recipient,
-                inputFieldStyle = composeChatStyle.inputFieldStyle,
-                onSendClick = {
-                    onMessageSend(
-                        it
-                    )
 
-                })
+                    })
+            }
         }
+        if (showCamera)
+            Camera(
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .fillMaxWidth(),
+                controller = controller
+            ) { it ->
+                onMessageSend(
+
+                    Message(
+                        author = loggedInUser,
+                        recipient = recipient,
+                        timestamp = LocalDateTime.now(),
+                        messageData = MessageData(file = File(it.path), type = MessageType.IMAGE),
+                        id = UUID.randomUUID().toString(),
+                        status = MessageStatus.SENDING
+                    )
+                )
+                showCamera = false
+
+            }
     }
 }
 
@@ -233,8 +288,8 @@ internal fun <T> EndlessLazyColumn(
     }
     LaunchedEffect(items) {
         ///if scroll position is zero animate to 0
- if(!listState.canScrollBackward)
-        listState.animateScrollToItem(0)
+        if (!listState.canScrollBackward)
+            listState.animateScrollToItem(0)
     }
 
 
