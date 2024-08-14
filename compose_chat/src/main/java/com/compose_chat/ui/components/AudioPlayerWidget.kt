@@ -99,7 +99,7 @@ fun AudioPlayerWidget(
                 AudioWaveform(
                     amplitudes = amplitudes,
                     amplitudeType = AmplitudeType.Avg,
-                    progressBrush = SolidColor(MaterialTheme.colorScheme.onSurface),
+                    progressBrush = SolidColor(Color.White),
                     waveformBrush = SolidColor(Color.Black),
                     spikeWidth = 4.dp,
                     spikePadding = 2.dp,
