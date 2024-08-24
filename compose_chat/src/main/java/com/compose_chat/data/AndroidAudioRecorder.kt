@@ -10,7 +10,7 @@ import java.io.FileOutputStream
 class AndroidAudioRecorder(private val context: Context) : AudioRecorder {
     private var audioRecorder: MediaRecorder? = null
     override fun start(outputFile: File) {
-
+        audioRecorder?.reset() // Reset if previously used
         createRecorder().apply {
             setAudioSource(MediaRecorder.AudioSource.MIC)
             setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)

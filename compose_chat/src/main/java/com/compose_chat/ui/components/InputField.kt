@@ -71,7 +71,8 @@ fun InputField(
     onSendClick: (Message) -> Unit = {},
     inputFieldStyle: InputFieldStyle,
     onCameraAttachmentClick: () -> Unit = {}
-) {0
+) {
+    0
 
 
     var showAttachmentSheet by remember { mutableStateOf(false) }
@@ -83,39 +84,42 @@ fun InputField(
         modifier = modifier.fillMaxWidth()
     ) {
 
-    if(showAttachmentSheet)    Dialog(
+        if (showAttachmentSheet) Dialog(
 
-        onDismissRequest = {
-            showAttachmentSheet = false
-        }) {
-        AttachmentSheet(
-            modifier = Modifier.fillMaxWidth(),
-            showAttachmentSheet = true,
-            onAttachmentOutSideClick = {
+            onDismissRequest = {
                 showAttachmentSheet = false
+            }) {
+            AttachmentSheet(
+                modifier = Modifier.fillMaxWidth(),
+                showAttachmentSheet = true,
+                onAttachmentOutSideClick = {
+                    showAttachmentSheet = false
 
-            },
-            onCameraAttachmentClick = {
-                onCameraAttachmentClick()
-            },
-            onImageAttachmentSelected = {
-                showAttachmentSheet = false
+                },
+                onCameraAttachmentClick = {
+                    onCameraAttachmentClick()
+                },
+                onImageAttachmentSelected = {
+                    showAttachmentSheet = false
 
-                onSendClick(
-                    Message(
-                        author = loggedInUser,
-                        recipient = recipient,
-                        timestamp = LocalDateTime.now(),
-                        messageData = MessageData(file = File(it.path), type = MessageType.IMAGE),
-                        id = UUID.randomUUID().toString(),
-                        status = MessageStatus.SENDING
+                    onSendClick(
+                        Message(
+                            author = loggedInUser,
+                            recipient = recipient,
+                            timestamp = LocalDateTime.now(),
+                            messageData = MessageData(
+                                file = File(it.path),
+                                type = MessageType.IMAGE
+                            ),
+                            id = UUID.randomUUID().toString(),
+                            status = MessageStatus.SENDING
+                        )
                     )
-                )
-            }
-        )
+                }
+            )
 
 
-    }
+        }
         InputRow(
             inputString = inputString,
             onInputChange = { inputString = it },
@@ -127,17 +131,21 @@ fun InputField(
 //                Log.d("Attachment", "Clicked")
             },
             onVoiceRecorded = {
-                onSendClick(
-                    Message(
-                        author = loggedInUser,
-                        recipient = recipient,
-                        timestamp = LocalDateTime.now(),
-                        messageData = MessageData(file = it, type = MessageType.AUDIO),
-                        id = UUID.randomUUID().toString(),
-                        status = MessageStatus.SENDING
+                val file=it
+               if(it!=null&&it.exists())
+               {
+                   onSendClick(
+                       Message(
+                           author = loggedInUser,
+                           recipient = recipient,
+                           timestamp = LocalDateTime.now(),
+                           messageData = MessageData(file = it, type = MessageType.AUDIO),
+                           id = UUID.randomUUID().toString(),
+                           status = MessageStatus.SENDING
 
-                    )
-                )
+                       )
+                   )
+               }
             },
             onSendClick = {
                 val uniqueId = UUID.randomUUID().toString()
@@ -361,16 +369,23 @@ fun SendMessageButton(
 
     )
     else {
-        SendButton(Modifier, onSendClick,
+        SendButton(
+            Modifier, onSendClick,
             backGroundColor = inputFieldStyle.sendButtonBackGroundColor,
-            iconColor = inputFieldStyle.micIconColor)
+            iconColor = inputFieldStyle.micIconColor
+        )
     }
 
 
 }
 
 @Composable
-fun SendButton(modifier: Modifier, onSendClick: () -> Unit, backGroundColor: Color, iconColor: Color) {
+fun SendButton(
+    modifier: Modifier,
+    onSendClick: () -> Unit,
+    backGroundColor: Color,
+    iconColor: Color
+) {
     IconButton(
         onClick = onSendClick,
 
@@ -411,14 +426,19 @@ fun MicButton(
     ) {
         if (it) {
 
-            onRecordStarting()
-            val messageId = UUID.randomUUID().toString()
-            File(context.cacheDir, messageId + ".mp3").also {
-                audioRecorder.start(it)
-                audioFile = it
-            }
+            try {
+                onRecordStarting()
+                val messageId = UUID.randomUUID().toString()
+                File(context.cacheDir, messageId + ".mp3").also {
+                    audioRecorder.start(it)
+                    audioFile = it
+                }
 
-            Log.d("Permission", "Granted")
+                Log.d("Permission", "Granted")
+            } catch (e: Exception) {
+                Log.e("Permission", e.message.toString())
+
+            }
         } else {
             Log.d("Permission", "Denied")
         }
