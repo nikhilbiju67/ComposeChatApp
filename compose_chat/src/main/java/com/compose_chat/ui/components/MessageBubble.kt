@@ -92,7 +92,7 @@ fun MessageBubble(
                         Text(
                             modifier = Modifier.padding(8.dp),
                             text = it,
-                            color =bubbleStyle.messageTextStyle.color,
+                            color = bubbleStyle.messageTextStyle.color,
                             style = bubbleStyle.messageTextStyle,
                         )
                     }
@@ -100,9 +100,9 @@ fun MessageBubble(
 
                 MessageType.IMAGE -> {
                     val context = LocalContext.current
-                    if(imageBuilder!=null){
+                    if (imageBuilder != null) {
                         imageBuilder.invoke(message)
-                    }else if (message.messageData.file != null && message.messageData.file.exists()) {
+                    } else if (message.messageData.file != null && message.messageData.file.exists()) {
                         AsyncImage(
                             model = ImageRequest.Builder(LocalContext.current)
                                 .data(message.messageData.file.absolutePath)
@@ -151,7 +151,7 @@ fun MessageBubble(
 
                         color = MaterialTheme.colorScheme.background,
                         durationMillis = 1000,
-                         size = 10.dp,
+                        size = 10.dp,
                         circleSizeRatio = 0.5f
 
 

@@ -1,5 +1,6 @@
 package com.compose_chat.ui.components
 
+import android.content.pm.PackageManager
 import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -49,6 +50,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
+import androidx.core.content.ContextCompat
 import com.compose_chat.R
 import com.compose_chat.data.AndroidAudioRecorder
 import com.compose_chat.domain.ChatUser
@@ -85,6 +88,9 @@ fun InputField(
     ) {
 
         if (showAttachmentSheet) Dialog(
+            properties = DialogProperties(
+                usePlatformDefaultWidth = false
+            ),
 
             onDismissRequest = {
                 showAttachmentSheet = false
@@ -131,21 +137,20 @@ fun InputField(
 //                Log.d("Attachment", "Clicked")
             },
             onVoiceRecorded = {
-                val file=it
-               if(it!=null&&it.exists())
-               {
-                   onSendClick(
-                       Message(
-                           author = loggedInUser,
-                           recipient = recipient,
-                           timestamp = LocalDateTime.now(),
-                           messageData = MessageData(file = it, type = MessageType.AUDIO),
-                           id = UUID.randomUUID().toString(),
-                           status = MessageStatus.SENDING
+                val file = it
+                if (it != null && it.exists()) {
+                    onSendClick(
+                        Message(
+                            author = loggedInUser,
+                            recipient = recipient,
+                            timestamp = LocalDateTime.now(),
+                            messageData = MessageData(file = it, type = MessageType.AUDIO),
+                            id = UUID.randomUUID().toString(),
+                            status = MessageStatus.SENDING
 
-                       )
-                   )
-               }
+                        )
+                    )
+                }
             },
             onSendClick = {
                 val uniqueId = UUID.randomUUID().toString()
@@ -415,30 +420,35 @@ fun MicButton(
     onRecordProgress: (Int) -> Unit,
     iconColor: Color
 ) {
+
+
     val context = LocalContext.current
     val audioRecorder by lazy {
         AndroidAudioRecorder(context)
     }
     var audioFile: File? = null
+    fun startRecord() {
+        try {
+            onRecordStarting()
+            val messageId = UUID.randomUUID().toString()
+            File(context.cacheDir, messageId + ".mp3").also {
+                audioRecorder.start(it)
+                audioFile = it
+            }
+
+            Log.d("Permission", "Granted")
+        } catch (e: Exception) {
+            Log.e("Permission", e.message.toString())
+
+        }
+    }
 
     val microPhonePermissionResultLauncher = rememberLauncherForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) {
         if (it) {
+//            startRecord()
 
-            try {
-                onRecordStarting()
-                val messageId = UUID.randomUUID().toString()
-                File(context.cacheDir, messageId + ".mp3").also {
-                    audioRecorder.start(it)
-                    audioFile = it
-                }
-
-                Log.d("Permission", "Granted")
-            } catch (e: Exception) {
-                Log.e("Permission", e.message.toString())
-
-            }
         } else {
             Log.d("Permission", "Denied")
         }
@@ -449,9 +459,16 @@ fun MicButton(
 
 
     if (pressed) {
-        microPhonePermissionResultLauncher.launch(android.Manifest.permission.RECORD_AUDIO)
+        val isPermissionGranted = ContextCompat.checkSelfPermission(
+            context,
+            android.Manifest.permission.RECORD_AUDIO
+        ) == PackageManager.PERMISSION_GRANTED
+        if (!isPermissionGranted) {
+            microPhonePermissionResultLauncher.launch(android.Manifest.permission.RECORD_AUDIO)
+        } else {
+            startRecord()
 
-
+        }
 
         Log.d("pressed", "pressed")
         DisposableEffect(Unit) {

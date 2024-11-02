@@ -60,7 +60,11 @@ fun AttachmentSheet(
                 showAttachmentSheetFlag = false
                 onAttachmentOutSideClick()
             },
-            properties = DialogProperties(dismissOnBackPress = true, dismissOnClickOutside = true)
+
+            properties = DialogProperties(
+                usePlatformDefaultWidth = false,
+                dismissOnBackPress = true, dismissOnClickOutside = true
+            )
         ) {
             Column(
                 verticalArrangement = Arrangement.Bottom,
@@ -68,7 +72,7 @@ fun AttachmentSheet(
                     .clickable {
                         onAttachmentOutSideClick()
                     }
-                    .padding(bottom = 12.dp)
+                    .padding(vertical = 16.dp)
 
             ) {
                 AttachmentOptions(
@@ -158,14 +162,15 @@ fun AttachmentOptions(
 
         Column(
             modifier = modifier
-                .fillMaxWidth(), verticalArrangement = Arrangement.Bottom
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(24.dp))
+                .background(color = MaterialTheme.colorScheme.background)
+                .padding(vertical = 24.dp, horizontal = 24.dp), verticalArrangement = Arrangement.Bottom
         ) {
             Row(
                 modifier = Modifier
-                    .padding(horizontal = 16.dp, vertical = 32.dp)
                     .fillMaxWidth()
-                    .clip(RoundedCornerShape(24.dp))
-                    .background(color = MaterialTheme.colorScheme.background),
+                    .clip(RoundedCornerShape(24.dp)),
                 horizontalArrangement = Arrangement.SpaceEvenly,
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -186,7 +191,7 @@ fun AttachmentOptions(
                         colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onBackground),
                         contentDescription = "Camera"
                     )
-                    Text("Camera")
+                    Text("Camera", style = MaterialTheme.typography.bodySmall)
                 }
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
@@ -208,7 +213,7 @@ fun AttachmentOptions(
                         colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onBackground),
                         contentDescription = "Gallery"
                     )
-                    Text("Gallery")
+                    Text("Gallery",style = MaterialTheme.typography.bodySmall)
                 }
             }
         }

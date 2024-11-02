@@ -12,6 +12,7 @@ import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.File
+import kotlin.coroutines.cancellation.CancellationException
 
 interface AudioPlayerListener {
     fun onProgressUpdate(progress: Int, currentPlayingResource: String?)
@@ -97,26 +98,33 @@ class AndroidAudioPlayer(private val context: Context, private val listener: Aud
 
 
     private fun startProgressUpdates() {
-        progressJob?.cancel()
+        progressJob?.cancel()  // Cancels any previous job
         progressJob = CoroutineScope(Dispatchers.Default).launch {
             mediaPlayer?.let { player ->
                 val duration = player.duration
-                while (isActive) {
-                    try {
+                try {
+                    while (isActive) {  // Check if coroutine is still active
                         val currentPosition = player.currentPosition
                         val progress = (currentPosition.toDouble() / duration * 100).toInt()
+
                         withContext(Dispatchers.Main) {
                             listener.onProgressUpdate(progress, playingResource)
                             audioProgress = progress
                         }
-                        delay(200) // Update every 200ms
-                    } catch (e: Exception) {
-                        Log.e("AudioPlayer", "Error updating progress", e)
+
+                        delay(100)  // Safely delay between progress updates
                     }
+                } catch (e: CancellationException) {
+                    // Handle coroutine cancellation
+                    Log.e("AudioPlayer", "Coroutine cancelled", e)
+                } catch (e: Exception) {
+                    // Handle other exceptions
+                    Log.e("AudioPlayer", "Error updating progress", e)
                 }
             }
         }
     }
+
 
     private fun stopProgressUpdates() {
         progressJob?.cancel()

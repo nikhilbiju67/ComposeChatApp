@@ -1,4 +1,4 @@
-package com.compose_chat.ui
+ package com.compose_chat.ui
 
 import android.os.Build
 import android.util.Log
@@ -49,7 +49,8 @@ import java.io.File
 import java.time.LocalDateTime
 import java.util.UUID
 
-@OptIn(ExperimentalMaterialApi::class, ExperimentalFoundationApi::class,
+@OptIn(
+    ExperimentalMaterialApi::class, ExperimentalFoundationApi::class,
     ExperimentalMaterial3Api::class
 )
 @Composable
@@ -138,7 +139,7 @@ fun ChatView(
                                 imageBuilder = imageBuilder,
                                 composeChatStyle = composeChatStyle,
 
-                                isAudioPlaying = currentPlayingResourceState == message.messageData.url
+                                isAudioPlaying = currentPlayingResourceState == message.messageData.url || currentPlayingResourceState == message.messageData.file?.absolutePath
                             )
                         }
                     }, loadingItem = { /*TODO*/ })
